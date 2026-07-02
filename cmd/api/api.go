@@ -15,8 +15,14 @@ type config struct{
 }
 
 
-func (app *application) run() error{
+func( app *application) mount() *http.ServeMux{
 	mux:=http.NewServeMux()
+
+	return mux
+}
+
+func (app *application) run(mux *http.ServeMux) error{
+
 	srv:= &http.Server{
 		Addr:app.config.addr,
 		Handler: mux,
