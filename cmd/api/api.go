@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"time"
+)
 
 type application struct{
 	config config
@@ -17,6 +20,8 @@ func (app *application) run() error{
 	srv:= &http.Server{
 		Addr:app.config.addr,
 		Handler: mux,
+		WriteTimeout: time.Second *30,
+		ReadTimeout: time.Second *10,
 	}
 
 	return srv.ListenAndServe()
