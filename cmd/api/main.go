@@ -1,12 +1,19 @@
 package main
 
-import "log"
+import (
+	"log"
+	"github.com/shreeram/social/internal/env"
+)
 
 
 
 func main(){
+	if err := env.Load(); err != nil {
+		log.Println("no .env file found, using defaults")
+	}
+
 	cfg:=config{
-		addr: ":8080",
+		addr: env.GetString("ADDR",":8080"),
 	}
 
 
